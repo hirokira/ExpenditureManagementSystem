@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!-- thymeleafを使うため以下を記述する。以後はth:xxxとすればthymeleafのメソッドが使用可能。 -->
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<meta charset="UTF-8">
+<title th:text="#{content.title}"></title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+
+	<div th:insert="item/itemTop :: header"></div>
+
+
+	<div class="container text-center">
+		<h1 class="font-italic text-left text-dark pb-2 mt-4 mb-2 border-bottom border-primary">新規Item登録</h1>
+		<ul>
+			<li th:if="${msg!=null}" th:text="${msg}" class="text-left text-danger"/>
+		</ul>
+
+
+
+		<form th:action="@{/item/create2}" action="/item/create2" method="post" th:object="${formModel}">
+			<!-- <ul>
+				<li th:each="error : ${#fields.detailedErrors()}" class = "err" th:text="${error.message}" />
+			</ul>
+			 -->
+			 <div class="text-left">
+				 <label th:text="登録日："></label>
+				<input type="date" th:field="*{insert_date}" class="my-3"/>
+			</div>
+			<table class="table table-hover table-bordered">
+				<thead class="thead-light">
+					<tr>
+						<th>商品名</th>
+						<th>値段</th>
+						<th>分類</th>
+					</tr>
+				</thead>
+				<tr th:each="i : ${#numbers.sequence(0, __${COUNT}__)}" >
+					<td><input type="text" th:field="*{items[__${i}__].itemName}" placeholder="商品名"/></td>
+					<td><input type="text" size = "8" th:field="*{items[__${i}__].price}" placeholder="値段" class="text-right"/>円</td>
+
+					 <td>
+						 <select name="bunrui2"  th:field="*{items[__${i}__].bunrui2}">
+						 	<option th:value=1 th:text="住居費" ></option>
+						 	<option th:value=2 th:text="水道光熱費"></option>
+						 	<option th:value=3 th:text="通信費"></option>
+						 	<option th:value=4 th:text="保険料"></option>
+						 	<option th:value=5 th:text="食費"></option>
+						 	<option th:value=6 th:text="日用品費"></option>
+						 	<option th:value=7 th:text="被服費"></option>
+						 	<option th:value=8 th:text="美容費"></option>
+						 	<option th:value=9 th:text="交際費"></option>
+						 	<option th:value=10 th:text="趣味費"></option>
+						 	<option th:value=11 th:text="交通費"></option>
+						 	<option th:value=12 th:text="教育費"></option>
+						 	<option th:value=13 th:text="医療費"></option>
+						 	<option th:value=14 th:text="特別費"></option>
+						 	<option th:value=15 th:text="雑費"></option>
+						 </select>
+					 </td>
+					 <input type="hidden" th:field="*{items[__${i}__].bunrui1}"/>
+					 <input type="hidden" th:field="*{items[__${i}__].account}"/>
+				</tr>
+			</table>
+				<input type="submit" value="登録" class="btn btn-success"/>
+		</form>
+ 			<a th:href="@{/item/top}"><button class="btn btn-info mt-3">TOP画面へ戻る</button></a>
+		</div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+</body>
+</html>

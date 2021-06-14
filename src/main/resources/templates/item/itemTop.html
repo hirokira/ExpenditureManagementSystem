@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!-- thymeleafを使うため以下を記述する。以後はth:xxxとすればthymeleafのメソッドが使用可能。 -->
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+	<meta http-equiv="Content-Type"
+		content="text/html; charset=UTF-8" />
+<title th:text="#{content.title}"></title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+	<header th:fragment="header">
+		<div id = "header" class="bg-dark py-3">
+			<h2><a th:href="@{/item/top}" class="text-white font-italic text-decoration-none"><span th:text="#{content.title}"></span></a></h2>
+			<div class="text-right">
+				<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/item/indexAdmin}" class="text-light pr-4 text-decoration-none"><span th:text="#{content.header1}">itemAd</span></a>
+				<!-- <a th:if="${formModel.admin}" th:href="@{/item/indexAdmin}"><span th:text="#{content.header1}">itemAd</span></a> -->
+				<a th:href="@{/item/index}" class="text-light pr-4 text-decoration-none"><span th:text="#{content.header2}"></span></a>
+				<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/user/index}" class="text-light pr-4 text-decoration-none"><span th:text="#{content.header3}"></span></a>
+				<!-- ToDo：アカウント情報更新　を追加　2021/04/02Add -->
+				<a th:href="@{/user/show/{id}(id=${session.sessionAccount.id})}" class="text-light pr-4 text-decoration-none"><span th:text="ユーザー情報詳細" ></span></a>
+			</div>
+
+		</div>
+	</header>
+
+	<div id = "info">
+		<h4 th:text="${userInfo}" class="pl-3"></h4>
+		<p th:text="${msg}" ></p>
+	</div>
+
+	<div class="text-center py-5 container">
+
+			<a class="py-3" th:href="@{/item/yearIndex}"><button class="btn btn-info py-2 my-2">年毎の出費を確認</button></a><br/>
+			<a th:href="@{/item/monthIndex}"><button class="btn btn-info py-2 my-2">月毎の出費を確認</button></a><br/>
+			<a th:href="@{/item/dayIndex}"><button class="btn btn-info py-2 my-2">日毎の出費を確認</button></a><br/>
+			<a th:href="@{/item/new}"><button class="btn btn-success py-2 my-3">出費の登録</button></a><br/>
+
+	</div>
+
+<!--
+	<div id = "content">
+		<h1>アカウント一覧</h1>
+		<div class="content_new"><a th:href="@{/user/new}" href="{/user/new}">新規アカウント作成</a></div>
+
+		<div th:text="${msg}"></div>
+
+		<table class="content_index">
+			<tr class="content_th">
+				<th>ID</th>
+				<th>アカウント名</th>
+				<th>権限(ADMIN)</th>
+				<th>詳細を見る</th>
+			</tr>
+
+			<tr th:each="list : ${list}" class="content_tr">
+				<td><a th:href="@{/user/show/{id}(id=${list.id})}" ><span th:text="${list.id}" ></span></a></td>
+				<td th:text="${list.username}"></td>
+				<td th:text="${list.admin}"></td>
+				<td><a th:href="@{/user/show/{id}(id=${list.id})}">詳細を見る</a>
+			</tr>
+
+		</table>
+
+	</div>
+ -->
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!-- thymeleafを使うため以下を記述する。以後はth:xxxとすればthymeleafのメソッドが使用可能。 -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text="#{content.title}"></title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+
+	<div th:insert="item/itemTop :: header"></div>
+	<div class="container text-center">
+		<h1 class="font-italic text-left text-dark pb-2 mt-4 mb-2 border-bottom border-primary" th:text="#{content.monthIndex}"></h1>
+
+		<h3 class="mt-4">出費の確認したい年月を選択</h3>
+
+
+		<form th:action="@{/item/monthIndex/circle}" action="/item/monthIndex/circle" method="post">
+			<select name="year">
+	    		<option th:each="yearList : ${yearList}" th:selected="${yearList}==${year}" th:text="${yearList}"></option>
+			</select>
+			<span>年</span>
+
+			<select name="month">
+	    		<option th:each="monthList : ${monthList}" th:selected="${monthList}==${month}" th:text="${monthList}"></option>
+			</select>
+			<span>月</span>
+
+			<br/><br/>
+
+			<input type="submit" value="確認" class="btn btn-success"/>
+
+		</form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!-- thymeleafを使うため以下を記述する。以後はth:xxxとすればthymeleafのメソッドが使用可能。 -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text="#{content.title}"></title>
+</head>
+<body>
+	<h2 th:text="#{content.dayIndex}"></h2>
+
+	<p>出費の確認したい日を選択</p>
+
+
+	<form th:action="@{/item/dayIndex/circle}" action="/item/dayIndex/circle" method="post">
+		<select name="year">
+    		<option th:each="yearList : ${yearList}" th:selected="${yearList}==${year}" th:text="${yearList}"></option>
+		</select>
+		<span>年</span>
+
+		<select name="month">
+    		<option th:each="monthList : ${monthList}" th:selected="${monthList}==${month}" th:text="${monthList}"></option>
+		</select>
+		<span>月</span>
+
+		<select name="day">
+    		<option th:each="dayList : ${dayList}" th:selected="${dayList}==${day}" th:text="${dayList}"></option>
+		</select>
+		<span>日</span>
+
+		<br/><br/>
+
+		<input type="submit" value="確認"/>
+
+	</form>
+
+</body>
+</html>

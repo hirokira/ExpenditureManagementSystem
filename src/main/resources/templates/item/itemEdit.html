@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!-- thymeleafを使うため以下を記述する。以後はth:xxxとすればthymeleafのメソッドが使用可能。 -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<h1>商品情報修正</h1>
+	<ul>
+		<li th:if="${msg!=null}" th:text="${msg}" style=color:red/>
+	</ul>
+
+	<div class="content">
+
+		<form th:action="@{/item/update}" action="/item/update" method="post" th:object="${formModel}">
+			<ul>
+				<li th:each="error : ${#fields.detailedErrors()}" class = "err" th:text="${error.message}" />
+			</ul>
+			<table>
+				<tr><td><label>商品名：</label></td>
+					<td><input type="text" name="itemName" th:field="*{itemName}" /></td></tr>
+
+				<tr><td><label>値段：</label></td>
+					<td><input type="text" name="price" th:field="*{price}"  />円</td></tr>
+
+				<tr><td><label>分類：</label></td>
+					<td>
+
+					 <select name="bunrui2" >
+					 	<option th:value=1 th:text="住居費"></option>
+					 	<option th:value=2 th:text="水道光熱費"></option>
+					 	<option th:value=3 th:text="通信費"></option>
+					 	<option th:value=4 th:text="保険料"></option>
+					 	<option th:value=5 th:text="食費"></option>
+					 	<option th:value=6 th:text="日用品費"></option>
+					 	<option th:value=7 th:text="被服費"></option>
+					 	<option th:value=8 th:text="美容費"></option>
+					 	<option th:value=9 th:text="交際費"></option>
+					 	<option th:value=10 th:text="趣味費"></option>
+					 	<option th:value=11 th:text="交通費"></option>
+					 	<option th:value=12 th:text="教育費"></option>
+					 	<option th:value=13 th:text="医療費"></option>
+					 	<option th:value=14 th:text="特別費"></option>
+					 	<option th:value=15 th:text="雑費"></option>
+					 </select>
+				 	</td>
+				 </tr>
+				 <tr><td><input type="hidden" name="id" th:field="*{id}"/></td></tr>
+				 <tr><td><input type="hidden" name="bunrui1" th:field="*{bunrui1}"/></td></tr>
+				 <tr><td><input type="hidden" name="bunrui2" th:field="*{bunrui2}"/></td></tr>
+				 <tr><td><input type="hidden" name="account_id" th:field="*{account.id}"/></td></tr>
+			<input type="hidden" th:field="*{insert_date}" />
+				<tr><td><input type="submit" value="更新" /></td></tr>
+			</table>
+		</form>
+
+	</div>
+
+</body>
+</html>

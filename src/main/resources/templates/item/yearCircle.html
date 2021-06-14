@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<!-- thymeleafを使うため以下を記述する。以後はth:xxxとすればthymeleafのメソッドが使用可能。 -->
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+<head>
+<meta charset="UTF-8">
+<title th:text="#{content.title}"></title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+
+
+	<div th:insert="item/itemTop :: header"></div>
+
+	<div class = "container text-center ">
+		<div style="position: relative;left:25%; height:400px; width:800px;">
+			<canvas id="myChart"  ></canvas>
+		</div>
+		<script th:inline="javascript">
+		  var ctx = document.getElementById('myChart').getContext('2d');
+		  var myChart = new Chart(ctx, {
+		    type: 'pie',
+		    data: {
+		      labels: /*[[${label}]]*/,
+		      datasets: [{
+		        backgroundColor: [
+		          'rgba(255, 99, 132, 0.2)',
+		          'rgba(54, 162, 235, 0.2)',
+		          'rgba(255, 206, 86, 0.2)',
+		          'rgba(75, 102, 192, 0.2)',
+		          'rgba(153, 102, 255, 0.2)',
+		          'rgba(153, 102, 255, 0.2)',
+		          'rgba(153, 102, 255, 0.2)',
+		          'rgba(153, 102, 255, 0.2)',
+		          'rgba(153, 102, 255, 0.2)',
+		          'rgba(153, 102, 255, 0.2)',
+		          'rgba(153, 102, 255, 0.2)',
+		          'rgba(153, 102, 255, 0.2)',
+		          'rgba(153, 102, 255, 0.2)',
+		          'rgba(255, 159, 64, 0.2)'
+		        ],
+		        data: /*[[${date}]]*/,
+		      }]
+		    },
+		    options: {
+		        title : {
+		            fontSize: 16,
+		            display : true,
+		            text : /*[[${yearText}]]*/
+		        }
+		    }
+		  });
+		</script>
+		<br/>
+
+
+
+
+		<!-- 不要になったため、コメントアウト　2021/04/03 Add
+		<div class="syosai">
+			<form th:action="@{/item/yearIndex/Details}" action="/item/yearIndex/Details" method="get">
+				<input type="hidden" name="year" th:value="${year}" />
+				<input type="submit" value="支出の詳細を確認する" />
+			</form>
+		</div>
+		 -->
+
+		 <div class="pb-4 mb-4 border-bottom border-dark">
+			<h2 th:text="|${year}年#{content.bunrui1Syukei}|"></h2>
+		 	<table class="table table-hover table-bordered mt-4">
+		 		<tr class="thead-dark">
+		 			<th th:each="entry:${bunrui1Syukei}" th:text="${entry.key}" ></th>
+		 		</tr>
+
+		 		<tr>
+		 			<td th:each="entry:${bunrui1Syukei}" th:text="|${entry.value} 円|"></td>
+		 		</tr>
+		 	</table>
+
+		 </div>
+
+		<div style="position: relative;left:25%; height:400px; width:800px;">
+			<canvas id="myChart2"  ></canvas>
+		</div>
+		<script th:inline="javascript">
+		var ctx = document.getElementById("myChart2").getContext('2d');
+		var myChart = new Chart(ctx, {
+		  type: 'bar',
+		  data: {
+		    labels: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+		    datasets: [{
+		      label: '支出額',
+		      data:  /*[[${monthTotalDate}]]*/,
+		      backgroundColor: "rgba(153,255,51,1)"
+		    }]
+		  }
+		});
+		</script>
+
+		<div class="mt-3 pt-3 mb-4 pb-3 border-bottom border-dark">
+			<h2 th:text="|${year}年#{content.yearIndex}|"></h2>
+			<table class="table table-hover table-bordered mt-4">
+				<tr class="thead-dark ">
+					<th>1月</th>
+					<th>2月</th>
+					<th>3月</th>
+					<th>4月</th>
+					<th>5月</th>
+					<th>6月</th>
+					<th>7月</th>
+					<th>8月</th>
+					<th>9月</th>
+					<th>10月</th>
+					<th>11月</th>
+					<th>12月</th>
+				</tr>
+				<tr>
+					<td><a class="text-decoration-none" th:href="@{${url}(year=${year},month=1)}"><span th:text="|${totalList[0]}円|"></span></a></td>
+					<td><a class="text-decoration-none" th:href="@{${url}(year=${year},month=2)}"><span th:text="|${totalList[1]}円|"></span></a></td>
+					<td><a class="text-decoration-none" th:href="@{${url}(year=${year},month=3)}"><span th:text="|${totalList[2]}円|"></span></a></td>
+					<td><a class="text-decoration-none" th:href="@{${url}(year=${year},month=4)}"><span th:text="|${totalList[3]}円|"></span></a></td>
+					<td><a class="text-decoration-none" th:href="@{${url}(year=${year},month=5)}"><span th:text="|${totalList[4]}円|"></span></a></td>
+					<td><a class="text-decoration-none" th:href="@{${url}(year=${year},month=6)}"><span th:text="|${totalList[5]}円|"></span></a></td>
+					<td><a class="text-decoration-none" th:href="@{${url}(year=${year},month=7)}"><span th:text="|${totalList[6]}円|"></span></a></td>
+					<td><a class="text-decoration-none" th:href="@{${url}(year=${year},month=8)}"><span th:text="|${totalList[7]}円|"></span></a></td>
+					<td><a class="text-decoration-none" th:href="@{${url}(year=${year},month=9)}"><span th:text="|${totalList[8]}円|"></span></a></td>
+					<td><a class="text-decoration-none" th:href="@{${url}(year=${year},month=10)}"><span th:text="|${totalList[9]}円|"></span></a></td>
+					<td><a class="text-decoration-none" th:href="@{${url}(year=${year},month=11)}"><span th:text="|${totalList[10]}円|"></span></a></td>
+					<td><a class="text-decoration-none" th:href="@{${url}(year=${year},month=12)}"><span th:text="|${totalList[11]}円|"></span></a></td>
+				</tr>
+			</table>
+		</div>
+
+		<a th:href="@{/item/top}"><button class="btn btn-info mb-5" th:text="TOP画面へ戻る"></button></a>
+	</div>
+		<!--
+			<h2 th:text="#{content.monthIndex}"></h2>
+
+			<span th:text="|${year}年|"></span><span th:text="の支出一覧"></span>
+
+
+
+				<table class="content_index">
+					<tr class="content_th">
+						<th>登録日</th>
+						<th>商品名</th>
+						<th>値段</th>
+						<!-- <th>登録日</th> -->
+			<!-- 			<th>分類1</th>
+						<th>分類2</th>
+					</tr>
+
+					<tr th:each="list : ${list}" class="content_tr">
+						<td th:text="${#dates.format(new java.util.Date(list.insert_date), 'yyyy-MM-dd')}"></td>
+						<td th:text="${list.itemName}"></td>
+						<td th:text="${list.price}"></td>
+						<!-- <td th:text="${#dates.format(new java.util.Date(list.insert_date), 'yyyy-MM-dd')}"></td> -->
+		<!--  				<td th:if="${list.bunrui1==0}">固定費</td>
+						<td th:if="${list.bunrui1==1}">変動費</td>
+
+						<!-- <td th:text="${list.bunrui1}"></td> -->
+		<!-- 				<td th:if="${list.bunrui2==1}">住居費</td>
+						<td th:if="${list.bunrui2==2}">水道光熱費</td>
+						<td th:if="${list.bunrui2==3}">通信費</td>
+						<td th:if="${list.bunrui2==4}">保険料金</td>
+						<td th:if="${list.bunrui2==5}">食費</td>
+						<td th:if="${list.bunrui2==6}">日用品費</td>
+						<td th:if="${list.bunrui2==7}">被服費</td>
+						<td th:if="${list.bunrui2==8}">美容費</td>
+						<td th:if="${list.bunrui2==9}">交際費</td>
+						<td th:if="${list.bunrui2==10}">趣味費</td>
+						<td th:if="${list.bunrui2==11}">交通費</td>
+						<td th:if="${list.bunrui2==12}">教育費</td>
+						<td th:if="${list.bunrui2==13}">医療費</td>
+						<td th:if="${list.bunrui2==14}">特別費</td>
+						<td th:if="${list.bunrui2==15}">雑費</td>
+					</tr>
+
+				</table>
+		 -->
+</body>
+</html>

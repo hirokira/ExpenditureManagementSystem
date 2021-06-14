@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!-- thymeleafを使うため以下を記述する。以後はth:xxxとすればthymeleafのメソッドが使用可能。 -->
+
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<h1>新規アカウント登録</h1>
+	<ul>
+		<li th:if="${msg!=null}" th:text="${msg}" />
+	</ul>
+
+	<div class="content">
+
+		<form th:action="@{/user/create}" action="/user/create" method="post" th:object="${formModel}">
+			<ul>
+				<li th:each="error : ${#fields.detailedErrors()}" class = "err" th:text="${error.message}" />
+			</ul>
+			<table>
+				<tr><td><label>ユーザー名</label></td>
+					<td><input type="text" name="username" th:value="*{username}" /></td></tr>
+
+				<tr><td><label>パスワード</label></td>
+					<td><input type="text" name="password" th:value="*{password}" /></td></tr>
+
+				<tr><td><label for="role">権限</label></td>
+				  	<td><select id="admin" name="admin">
+				  	<!-- 新規のユーザー権限は"一般"のみとするため、管理者の選択を削除。--2021/04/02 Add
+				  		<option th:value=true th:text="管理者"></option>
+				  	-->
+				  		<option th:value=false th:text="一般"></option>
+			  		</select></td></tr>
+
+					<input type="hidden" name="enabled" th:value="*{enabled}" />
+
+				<tr><td><input type="submit" value="登録" /></td></tr>
+			</table>
+		</form>
+
+	</div>
+
+</body>
+</html>

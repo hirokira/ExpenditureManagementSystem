@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!-- thymeleafを使うため以下を記述する。以後はth:xxxとすればthymeleafのメソッドが使用可能。 -->
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<meta charset="UTF-8">
+<title>家計簿アプリケーション</title>
+</head>
+<body>
+
+	<div id = "content">
+		<h1>アカウント一覧</h1>
+		<!-- Loginページからのみの新規アカウント作成とするため、削除--2021/04/02 Add
+			<div class="content_new"><a th:href="@{/user/new}" href="{/user/new}">新規アカウント作成</a></div>
+		 -->
+		<div th:text="${msg}"></div>
+
+		<table class="content_index">
+			<tr class="content_th">
+				<th>ID</th>
+				<th>アカウント名</th>
+				<th>権限(ADMIN)</th>
+				<th>詳細を見る</th>
+			</tr>
+
+			<tr th:each="list : ${list}" class="content_tr">
+				<td><a th:href="@{/user/show/{id}(id=${list.id})}" ><span th:text="${list.id}" ></span></a></td>
+				<td th:text="${list.username}"></td>
+				<td th:text="${list.admin}"></td>
+				<td><a th:href="@{/user/show/{id}(id=${list.id})}">詳細を見る</a>
+			</tr>
+
+		</table>
+
+	</div>
+
+</body>
+</html>

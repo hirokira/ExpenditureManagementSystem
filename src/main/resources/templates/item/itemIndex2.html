@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<!-- thymeleafを使うため以下を記述する。以後はth:xxxとすればthymeleafのメソッドが使用可能。 -->
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<meta charset="UTF-8">
+<title th:text="#{content.title}"></title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+
+	<div th:insert="item/itemTop :: header"></div>
+	<div class = "container text-center ">
+<!--
+		<h1  th:if="${formModel.admin}" class="font-italic text-left text-dark pb-2 mt-4 mb-2 border-bottom border-primary">Item一覧Admin</h1>
+ 		<h1  th:unless="${formModel.admin}" class="font-italic text-left text-dark pb-2 mt-4 mb-2 border-bottom border-primary">Item一覧</h1>
+
+ -->
+
+		<h1 class="font-italic text-dark pb-2 mt-4 mb-2 border-bottom border-primary">Item一覧</h1>
+
+		<h4 th:text="${msg}"></h4>
+
+		<table class="table table-hover table-bordered mt-4">
+			<tr class="thead-dark">
+				<th>ID</th>
+				<th>商品</th>
+				<th>値段</th>
+				<th>購入日</th>
+				<th>分類1</th>
+				<th>分類2</th>
+				<th>編集</th>
+			</tr>
+
+			<tr th:each="list : ${list}" class="content_tr">
+				<td th:text="${list.id}" ></td>
+				<td th:text="${list.itemName}"></td>
+				<td th:text="${list.price}"></td>
+				<td th:text="${#dates.format(new java.util.Date(list.insert_date), 'yyyy-MM-dd')}"></td>
+				<td th:if="${list.bunrui1==0}">固定費</td>
+				<td th:if="${list.bunrui1==1}">変動費</td>
+
+				<!-- <td th:text="${list.bunrui1}"></td> -->
+				<td th:if="${list.bunrui2==1}">住居費</td>
+				<td th:if="${list.bunrui2==2}">水道光熱費</td>
+				<td th:if="${list.bunrui2==3}">通信費</td>
+				<td th:if="${list.bunrui2==4}">保険料金</td>
+				<td th:if="${list.bunrui2==5}">食費</td>
+				<td th:if="${list.bunrui2==6}">日用品費</td>
+				<td th:if="${list.bunrui2==7}">被服費</td>
+				<td th:if="${list.bunrui2==8}">美容費</td>
+				<td th:if="${list.bunrui2==9}">交際費</td>
+				<td th:if="${list.bunrui2==10}">趣味費</td>
+				<td th:if="${list.bunrui2==11}">交通費</td>
+				<td th:if="${list.bunrui2==12}">教育費</td>
+				<td th:if="${list.bunrui2==13}">医療費</td>
+				<td th:if="${list.bunrui2==14}">特別費</td>
+				<td th:if="${list.bunrui2==15}">雑費</td>
+
+				<td><a th:href="@{/item/edit/{id}(id=${list.id})}" class="btn btn-outline-primary btn-sm">編集する</a></td>
+			</tr>
+
+		</table>
+
+
+
+
+	<!-- 以降がページネーション部分 -->
+
+	<nav aria-label="Page navigation" th:fragment="pagenation" class="mt-4">
+	  <ul class="pagination pagination-lg justify-content-center ">
+	    <li th:if="${page.first}" style="display:inline;" class="page-item disabled">
+	      <span class="page-link">&lt;&lt;前</span>
+	    </li>
+	    <li th:if="${!page.first}" style="display:inline;" class="page-item">
+	      <a class="page-link page-item" th:href="@{''(page = ${page.number} - 1)} "> &lt;&lt;前 </a>
+	    </li>
+
+
+	    <li  th:if="${list.size!=0}"
+	      th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}" style="display:inline; margin-left:10px;" class="page-item"
+	    >
+	      <span th:if="${i} == ${page.number}" th:text="${i + 1}" class="page-link">1</span>
+	      <a class="page-link" th:if="${i} != ${page.number}"  th:href="@{''(page = ${i})}">
+	        <span th:text="${i+1}" >1</span>
+	      </a>
+	    </li>
+
+
+	    <li th:if="${page.last}" style="display:inline; margin-left:10px;" class="page-item disabled">
+	      <span class="page-link">次&gt;&gt;</span>
+	    </li>
+	    <li th:if="${!page.last}" style="display:inline; margin-left:10px;" class="page-item">
+	      <a class="page-link" th:href="@{''(page = (${page.number} + 1))}">次&gt;&gt;</a>
+	    </li>
+	  </ul>
+	</nav>
+	<!--
+		<div>
+
+
+		  <ul>
+		    <li style="display:inline;">
+		      <span th:if="${page.first}">&lt;&lt;前</span>
+		      <a
+		        th:if="${!page.first}"
+		        th:href="@{${url}(page = ${page.number} - 1)}"
+		      >
+		        &lt;&lt;前
+		      </a>
+		    </li>
+		    <li  th:if="${list.size!=0}"
+		      th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}"
+		      style="display:inline; margin-left:10px;"
+		    >
+		      <span th:if="${i} == ${page.number}" th:text="${i + 1}">1</span>
+		      <a
+		        th:if="${i} != ${page.number}"
+		        th:href="@{${url}(page = ${i})}"
+		      >
+		        <span th:text="${i+1}">1</span>
+		      </a>
+		    </li>
+		    <li style="display:inline; margin-left:10px;">
+		      <span th:if="${page.last}">次&gt;&gt;</span>
+		      <a
+		        th:if="${!page.last}"
+		        th:href="@{${url}(page = (${page.number} + 1))}"
+		      >
+		      <!-- th:href="@{${url}(page = (${page.number} + 1))}" -->
+	<!-- 	        次&gt;&gt;
+		      </a>
+		    </li>
+		  </ul>
+		</div>
+ -->
+
+ 		<a th:href="@{/item/top}" ><button class="btn btn-info" th:text="TOP画面へ戻る"></button></a>
+	</div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!-- thymeleafを使うため以下を記述する。以後はth:xxxとすればthymeleafのメソッドが使用可能。 -->
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<h1>アカウント情報修正</h1>
+	<ul>
+		<li th:if="${msg!=null}" th:text="${msg}" style=color:red/>
+	</ul>
+
+	<div class="content">
+
+		<form th:action="@{/user/update}" action="/user/update" method="post" th:object="${formModel}">
+			<ul>
+				<li th:each="error : ${#fields.detailedErrors()}" class = "err" th:text="${error.message}" />
+			</ul>
+			<table>
+				<tr><td><label>ユーザー名：</label></td>
+					<td><input type="text" name="username" th:value="*{username}" /></td></tr>
+
+				<tr><td><label>変更前のパスワード：</label></td>
+					<td><input type="password" name="password_before"  /></td></tr>
+
+				<tr><td><label>新しいパスワード：</label></td>
+					<td><input type="password" name="password"  /></td></tr>
+
+				<tr><td><input type="submit" value="登録" /></td></tr>
+			</table>
+
+					<input type="hidden" name="id" th:value="*{id}" />
+					<input type="hidden" name="admin" th:value="*{admin}" />
+
+					<input type="hidden" name="enabled" th:value="*{enabled}" />
+		</form>
+
+	</div>
+
+</body>
+</html>

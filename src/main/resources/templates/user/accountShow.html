@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!-- thymeleafを使うため以下を記述する。以後はth:xxxとすればthymeleafのメソッドが使用可能。 -->
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<div id = "content">
+		<h1>アカウント情報詳細</h1>
+		<!-- <div><a th:href="@{/user/index}" href="{/user/index}">アカウント一覧へ戻る</a></div> -->
+
+		<table th:object = "${formModel}">
+			<tr><td th:text="|ID:${formModel.id}|"></td></tr>
+			<tr><td th:text="|ユーザー名：${formModel.username}|"></td></tr>
+			<tr><td th:text="|管理者権限：${formModel.admin}|" ></td></tr>
+			<!-- <tr><td th:if="${formModel.admin}==0" th:text="権限(ROLE)：USER"></td></tr> -->
+		</table>
+
+	</div>
+
+	<div>
+		<form th:action="@{/user/show/{id}}" method="post" th:object="${formModel}">
+				<input type="hidden" name="id" th:value="*{id}" />
+				<input type="submit" value="編集する" />
+		</form>
+
+	</div>
+
+<!--
+	<div>
+		<form th:action="@{/user/delete/{id}}" method="post" th:object="${formModel}">
+			<input type="hidden" name="id" th:value="*{id}" />
+			<input type="submit" th:value="|ID${formModel.id}を削除する|" />
+		</form>
+	</div>
+ -->
+</body>
+</html>
