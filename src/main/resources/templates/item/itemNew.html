@@ -9,10 +9,13 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+  <link th:href="@{/css/styles.css}" rel="stylesheet"/>
 </head>
 <body>
 
 	<div class="header" th:insert="item/itemTop :: header"></div>
+
+<div class="jumbotron itemIndex jumbotron-fluid">
  	<h1><a th:href="@{/item/top}">TOP画面へ戻る</a></h1>
 	<h1>新規Item登録</h1>
 	<ul>

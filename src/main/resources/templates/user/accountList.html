@@ -4,35 +4,47 @@
 xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 <meta charset="UTF-8">
-<title>家計簿アプリケーション</title>
+<title th:text="#{content.title}"></title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 </head>
 <body>
+	<div th:insert="item/itemTop :: header"></div>
 
-	<div id = "content">
-		<h1>アカウント一覧</h1>
+	<div class = "container text-center ">
+		<h1 class="font-italic text-dark pb-2 mt-4 mb-2 border-bottom border-primary">アカウント一覧</h1>
 		<!-- Loginページからのみの新規アカウント作成とするため、削除--2021/04/02 Add
 			<div class="content_new"><a th:href="@{/user/new}" href="{/user/new}">新規アカウント作成</a></div>
 		 -->
 		<div th:text="${msg}"></div>
 
-		<table class="content_index">
-			<tr class="content_th">
+		<table class="table table-hover table-bordered mt-4">
+			<tr class="thead-dark">
 				<th>ID</th>
 				<th>アカウント名</th>
 				<th>権限(ADMIN)</th>
 				<th>詳細を見る</th>
 			</tr>
 
-			<tr th:each="list : ${list}" class="content_tr">
-				<td><a th:href="@{/user/show/{id}(id=${list.id})}" ><span th:text="${list.id}" ></span></a></td>
+			<tr th:each="list : ${list}" class="content_tr ">
+				<td ><a th:href="@{/user/show/{id}(id=${list.id})}" ><span th:text="${list.id}"></span></a></td>
 				<td th:text="${list.username}"></td>
 				<td th:text="${list.admin}"></td>
-				<td><a th:href="@{/user/show/{id}(id=${list.id})}">詳細を見る</a>
+				<td><a th:href="@{/user/show/{id}(id=${list.id})}"><button class="btn btn-outline-primary btn-sm">詳細を見る</button></a>
 			</tr>
 
 		</table>
 
+ 		<a th:href="@{/item/top}" ><button class="btn btn-info mt-4 mb-4" th:text="TOP画面へ戻る"></button></a>
 	</div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
 
 </body>
 </html>

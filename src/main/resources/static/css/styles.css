@@ -29,6 +29,7 @@ body {
 
 .box{
     wide:100%;
+    height:100%;
     text-align:center;
 }
 
@@ -59,4 +60,63 @@ input[type="password"]{
     line-height:2em;
     paddhing:1em;
 
+}
+
+.jumbotron.login {
+  background-image: url("/images/hawai7.jpg");
+  background-size: cover;
+  background-position: center 0%;
+}
+
+.jumbotron.accountNew {
+  background-image: url("/images/hawai3.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center 0%;
+  height: 100vh;
+  width: 100%;
+}
+
+.accountList {
+  background-image: url("/images/hawai1.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center 0%;
+  height: 150vh;
+  width: 100%;
+}
+
+.accountShow {
+  background-image: url("/images/hawai5.jpg");
+  background-size: cover;
+  background-position: center 0%;
+  height: 100vh;
+  width: 100%;
+}
+
+.accountEdit {
+  background-image: url("/images/hawai3.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center 0%;
+  height: 100vh;
+  width: 100%;
+}
+
+.accountTop{
+  background-image: url("/images/hawai5.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center 0%;
+  height: 100vh;
+  width: 100%;
+}
+
+.itemIndex{
+  background-image: url("/images/hawai5.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center 0%;
+  height: 120vh;
+  width: 100%;
 }

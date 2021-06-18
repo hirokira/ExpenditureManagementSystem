@@ -25,7 +25,6 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 		<table class="table table-hover table-bordered mt-4">
 			<tr class="thead-dark">
-				<th>ID</th>
 				<th>商品</th>
 				<th>値段</th>
 				<th>購入日</th>
@@ -35,7 +34,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 			</tr>
 
 			<tr th:each="list : ${list}" class="content_tr">
-				<td th:text="${list.id}" ></td>
+				<!-- <td th:text="${list.id}" ></td>  -->
 				<td th:text="${list.itemName}"></td>
 				<td th:text="${list.price}"></td>
 				<td th:text="${#dates.format(new java.util.Date(list.insert_date), 'yyyy-MM-dd')}"></td>

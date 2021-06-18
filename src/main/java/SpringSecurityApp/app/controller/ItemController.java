@@ -259,6 +259,7 @@ public class ItemController {
 					service.itemInsert(form.getItems().get(i));//---Itemオブジェクトのインサート処理
 				}
 			}
+			session.setAttribute("msg", "商品の登録が完了しました。");
 			res = new ModelAndView("redirect:/item/top");
 		}else {
 			//---2021/02/24 ToDo:エラーがあった場合の処理---2021/03/14完了
@@ -282,6 +283,7 @@ public class ItemController {
 									BindingResult result,ModelAndView mav) {
 		ModelAndView res = null;
 		dao.itemUpdate(item);
+		session.setAttribute("msg", "商品の編集が完了しました。");
 		res = new ModelAndView("redirect:/item/top");
 //		if(!result.hasErrors()) {
 //			service.itemUpdate(item);

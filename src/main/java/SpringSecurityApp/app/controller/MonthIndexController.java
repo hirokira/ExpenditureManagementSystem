@@ -120,7 +120,7 @@ public class MonthIndexController {
 		for(int i = 0;i<categoryList.size();i++) {
 			array.add(categoryList.get(i).getCategory_Name());
 		}
-		System.out.println("Listで表示："+array);//----Listで格納したList変数arrayを出力
+//		System.out.println("Listで表示："+array);//----Listで格納したList変数arrayを出力
 		String[] strArray = array.toArray(new String[array.size()]);//----カテゴリが格納されたListを配列に変換
 
 		mav.addObject("label", strArray);
@@ -128,7 +128,7 @@ public class MonthIndexController {
 		//---Category毎の合計をListに格納する。
 		List<Integer> categorySumList = new ArrayList<Integer>();//---Listの箱作成
 		categorySumList =dayComponent.bunruiSyukei(service.itemByIdAndMonth(insert_date,account));//---カテゴリ毎の合計値をListに格納
-		System.out.println(categorySumList);
+
 
 		//---categorySumListを配列化
 		Integer[] sumArray = categorySumList.toArray(new Integer[categorySumList.size()]);
@@ -171,7 +171,7 @@ public class MonthIndexController {
 		String urlRequest = "?year="+year+"&month="+month;//---ページネーション時にRequestParam受け取り用のクエリパラメータ作成
 		mav.addObject("url", "/item/monthIndex/Details"+urlRequest);//---ページネーション時に遷移する用のURL作成
 
-		mav.setViewName("/item/dayList");
+		mav.setViewName("item/dayList");
 
 		return mav;
 	}

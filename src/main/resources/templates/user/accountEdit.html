@@ -4,33 +4,37 @@
 xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title th:text="#{content.title}"></title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 </head>
 <body>
+	<div th:insert="item/itemTop :: header"></div>
+	<div class = "container text-center ">
 
-	<h1>アカウント情報修正</h1>
+	<h1 class="font-italic text-left pb-2 mt-4 mb-2 border-bottom border-primary text-dark">アカウント情報修正</h1>
 	<ul>
-		<li th:if="${msg!=null}" th:text="${msg}" style=color:red/>
+		<li th:if="${msg!=null}" th:text="${msg}" style=color:red  class="text-left"/>
 	</ul>
 
 	<div class="content">
 
 		<form th:action="@{/user/update}" action="/user/update" method="post" th:object="${formModel}">
 			<ul>
-				<li th:each="error : ${#fields.detailedErrors()}" class = "err" th:text="${error.message}" />
+				<li th:each="error : ${#fields.detailedErrors()}"  style=color:red class = "err text-left" th:text="${error.message}" />
 			</ul>
-			<table>
+			<table class="table table-hover table-bordered">
 				<tr><td><label>ユーザー名：</label></td>
-					<td><input type="text" name="username" th:value="*{username}" /></td></tr>
+					<td class="text-left"><input type="text" name="username" th:value="*{username}" /></td></tr>
 
 				<tr><td><label>変更前のパスワード：</label></td>
-					<td><input type="password" name="password_before"  /></td></tr>
+					<td class="text-left"><input type="password" name="password_before"  /></td></tr>
 
 				<tr><td><label>新しいパスワード：</label></td>
-					<td><input type="password" name="password"  /></td></tr>
-
-				<tr><td><input type="submit" value="登録" /></td></tr>
+					<td class="text-left"><input type="password" name="password"  /></td></tr>
 			</table>
+			<input type="submit" value="更新" class="btn btn-primary"/>
 
 					<input type="hidden" name="id" th:value="*{id}" />
 					<input type="hidden" name="admin" th:value="*{admin}" />
@@ -39,6 +43,5 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 		</form>
 
 	</div>
-
 </body>
 </html>

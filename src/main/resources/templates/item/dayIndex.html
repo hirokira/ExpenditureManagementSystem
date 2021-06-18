@@ -4,34 +4,41 @@
 <head>
 <meta charset="UTF-8">
 <title th:text="#{content.title}"></title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 </head>
 <body>
-	<h2 th:text="#{content.dayIndex}"></h2>
 
-	<p>出費の確認したい日を選択</p>
+	<div th:insert="item/itemTop :: header"></div>
+
+	<div class="container text-center">
+		<h1 th:text="#{content.dayIndex}" class="font-italic text-left text-dark pb-2 mt-4 mb-2 border-bottom border-primary"></h1>
+
+		<h3  class="mt-4">出費の確認したい日を選択</h3>
 
 
-	<form th:action="@{/item/dayIndex/circle}" action="/item/dayIndex/circle" method="post">
-		<select name="year">
-    		<option th:each="yearList : ${yearList}" th:selected="${yearList}==${year}" th:text="${yearList}"></option>
-		</select>
-		<span>年</span>
+		<form th:action="@{/item/dayIndex/circle}" action="/item/dayIndex/circle" method="post">
+			<select name="year">
+	    		<option th:each="yearList : ${yearList}" th:selected="${yearList}==${year}" th:text="${yearList}"></option>
+			</select>
+			<span>年</span>
 
-		<select name="month">
-    		<option th:each="monthList : ${monthList}" th:selected="${monthList}==${month}" th:text="${monthList}"></option>
-		</select>
-		<span>月</span>
+			<select name="month">
+	    		<option th:each="monthList : ${monthList}" th:selected="${monthList}==${month}" th:text="${monthList}"></option>
+			</select>
+			<span>月</span>
 
-		<select name="day">
-    		<option th:each="dayList : ${dayList}" th:selected="${dayList}==${day}" th:text="${dayList}"></option>
-		</select>
-		<span>日</span>
+			<select name="day">
+	    		<option th:each="dayList : ${dayList}" th:selected="${dayList}==${day}" th:text="${dayList}"></option>
+			</select>
+			<span>日</span>
 
-		<br/><br/>
+			<br/><br/>
 
-		<input type="submit" value="確認"/>
+			<input type="submit" value="確認"  class="btn btn-success"/>
 
-	</form>
-
+		</form>
+	</div>
 </body>
 </html>

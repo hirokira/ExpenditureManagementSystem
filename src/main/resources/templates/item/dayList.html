@@ -4,19 +4,22 @@
 <head>
 <meta charset="UTF-8">
 <title th:text="#{content.title}"></title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 </head>
 <body>
 
-	<div id = "content">
+	<div th:insert="item/itemTop :: header"></div>
+	<div class = "container text-center ">
 <!--
 		<h1 th:if="${formModel.admin}">Item一覧Admin</h1>
 		<h1 th:unless="${formModel.admin}">Item一覧</h1>
  -->
- 		<h1><a th:href="@{/item/top}">TOP画面へ戻る</a></h1>
-		<h4 th:text="${msg}"></h4>
+		<h1 th:text="${msg}" class="font-italic text-dark pb-2 mt-4 mb-2 border-bottom border-primary"></h1>
 
-		<table class="content_index">
-			<tr class="content_th">
+		<table class="table table-hover table-bordered mt-4">
+			<tr  class="thead-dark">
 				<th>登録日</th>
 				<th>Item名</th>
 				<th>値段</th>
@@ -48,52 +51,46 @@
 				<td th:if="${list.bunrui2==13}">医療費</td>
 				<td th:if="${list.bunrui2==14}">特別費</td>
 				<td th:if="${list.bunrui2==15}">雑費</td>
-				<td><a th:href="@{/item/edit/{id}(id=${list.id})}">編集する</a></td>
+				<td><a th:href="@{/item/edit/{id}(id=${list.id})}" class="btn btn-outline-primary btn-sm">編集する</a></td>
 			</tr>
 
 		</table>
 
-
-	</div>
-
 	<!-- 以降がページネーション部分 -->
-<div>
+	<nav aria-label="Page navigation" th:fragment="pagenation" class="mt-4">
+	  <ul class="pagination pagination-lg justify-content-center ">
+	    <li th:if="${page.first}" style="display:inline;" class="page-item disabled">
+	      <span class="page-link">&lt;&lt;前</span>
+	    </li>
+	    <li th:if="${!page.first}" style="display:inline;" class="page-item">
+	      <a class="page-link page-item" th:href="@{${url}(page = ${page.number} - 1)} "> &lt;&lt;前 </a>
+	    </li>
 
+	    <li  th:if="${list.size!=0}"
+	      th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}" style="display:inline; margin-left:10px;" class="page-item"
+	    >
+	      <span th:if="${i} == ${page.number}" th:text="${i + 1}" class="page-link">1</span>
+	      <a class="page-link" th:if="${i} != ${page.number}"  th:href="@{${url}(page = ${i})}">
+	        <span th:text="${i+1}" >1</span>
+	      </a>
+	    </li>
 
-  <ul>
-    <li style="display:inline;">
-      <span th:if="${page.first}">&lt;&lt;前</span>
-      <a
-        th:if="${!page.first}"
-        th:href="@{${url}(page = ${page.number} - 1)}"
-      >
-        &lt;&lt;前
-      </a>
-    </li>
-    <li  th:if="${list.size!=0}"
-      th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}"
-      style="display:inline; margin-left:10px;"
-    >
-      <span th:if="${i} == ${page.number}" th:text="${i + 1}">1</span>
-      <a
-        th:if="${i} != ${page.number}"
-        th:href="@{${url}(page = ${i})}"
-      >
-        <span th:text="${i+1}">1</span>
-      </a>
-    </li>
-    <li style="display:inline; margin-left:10px;">
-      <span th:if="${page.last}">次&gt;&gt;</span>
-      <a
-        th:if="${!page.last}"
-        th:href="@{${url}(page = (${page.number} + 1))}"
-      >
-      <!-- th:href="@{${url}(page = (${page.number} + 1))}" -->
-        次&gt;&gt;
-      </a>
-    </li>
-  </ul>
-</div>
+	    <li th:if="${page.last}" style="display:inline; margin-left:10px;" class="page-item disabled">
+	      <span class="page-link">次&gt;&gt;</span>
+	    </li>
+	    <li th:if="${!page.last}" style="display:inline; margin-left:10px;" class="page-item">
+	      <a class="page-link" th:href="@{${url}(page = (${page.number} + 1))}">次&gt;&gt;</a>
+	    </li>
+	  </ul>
+	</nav>
+
+ 	<a th:href="@{/item/top}" ><button class="btn btn-info" th:text="TOP画面へ戻る"></button></a>
+ </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 </body>
 </html>

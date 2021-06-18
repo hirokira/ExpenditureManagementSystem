@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
@@ -35,11 +34,13 @@ public class Item {
 
 
 	@Column(nullable=false)
-	@NotNull
+//	@NotNull
+//	@Length(min=1,message="商品名は必須項目です。")
 	private String itemName;
 
 	@Column(nullable=false)
-	@NotNull
+//	@NotNull
+//	@Length(min=1,message="値段は必須項目です。")
 	private int price;
 
 	@ManyToOne

@@ -168,7 +168,7 @@ public class DayIndexController {
 		mav.addObject("list", itemList.getContent());
 		String urlRequest = "?year="+year+"&month="+month+"&day="+day;//---ページネーション時にRequestParam受け取り用のクエリパラメータ作成
 		mav.addObject("url", "/item/dayIndex/Details"+urlRequest);//---ページネーション時に遷移する用のURL作成
-		mav.setViewName("/item/dayList");
+		mav.setViewName("item/dayList");
 		mav.addObject("msg", year+"年"+month+"月"+day+"日の支出一覧");
 		/*
 		 * リスト表示させるための情報取得とAdd作業---End

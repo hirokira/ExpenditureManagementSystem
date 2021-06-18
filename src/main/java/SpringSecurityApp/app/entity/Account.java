@@ -5,8 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
 
 import lombok.Data;
 
@@ -29,14 +29,16 @@ public class Account  {
 	@Column(nullable=false,unique=true)
 	private Long id;
 
-	@NotNull
-	@NotEmpty
+//	@NotNull
+//	@NotEmpty
+	@Length(min=4,max=10,message="ユーザーIDは4文字以上10文字未満です。")
 	@Column(nullable=false,unique=true)
 	private String username;
 
 
-	@NotNull
-	@NotEmpty
+//	@NotNull
+//	@NotEmpty
+	@Length(min=1,message="パスワードは必須項目です。")
 	@Column(nullable=false)
 	private String password;
 

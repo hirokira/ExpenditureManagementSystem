@@ -28,7 +28,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 	<div id = "info">
 		<h4 th:text="${userInfo}" class="pl-3"></h4>
-		<p th:text="${msg}" ></p>
+		<p th:text="${msg}" class="text-center text-primary"></p>
 	</div>
 
 	<div class="text-center py-5 container">
@@ -39,7 +39,6 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 			<a th:href="@{/item/new}"><button class="btn btn-success py-2 my-3">出費の登録</button></a><br/>
 
 	</div>
-
 <!--
 	<div id = "content">
 		<h1>アカウント一覧</h1>

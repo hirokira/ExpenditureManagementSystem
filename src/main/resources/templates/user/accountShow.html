@@ -4,29 +4,28 @@
 xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title th:text="#{content.title}"></title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 </head>
 <body>
-
-	<div id = "content">
-		<h1>アカウント情報詳細</h1>
+	<div th:insert="item/itemTop :: header"></div>
+	<div class = "container text-center ">
+		<h1 class="font-italic text-left text-dark pb-2 mt-4 mb-2 border-bottom border-primary">アカウント情報詳細</h1>
 		<!-- <div><a th:href="@{/user/index}" href="{/user/index}">アカウント一覧へ戻る</a></div> -->
 
-		<table th:object = "${formModel}">
-			<tr><td th:text="|ID:${formModel.id}|"></td></tr>
-			<tr><td th:text="|ユーザー名：${formModel.username}|"></td></tr>
-			<tr><td th:text="|管理者権限：${formModel.admin}|" ></td></tr>
+		<table class="table table-hover table-bordered" th:object = "${formModel}">
+			<tr><td th:text="|ID　：　${formModel.id}|"></td></tr>
+			<tr><td th:text="|ユーザー名　：　${formModel.username}|"></td></tr>
+			<tr><td th:text="|管理者権限　：　${formModel.admin}|" ></td></tr>
 			<!-- <tr><td th:if="${formModel.admin}==0" th:text="権限(ROLE)：USER"></td></tr> -->
 		</table>
 
-	</div>
-
-	<div>
 		<form th:action="@{/user/show/{id}}" method="post" th:object="${formModel}">
-				<input type="hidden" name="id" th:value="*{id}" />
-				<input type="submit" value="編集する" />
+			<input type="hidden" name="id" th:value="*{id}" />
+			<input type="submit" value="編集する" class="btn btn-primary"/>
 		</form>
-
 	</div>
 
 <!--
